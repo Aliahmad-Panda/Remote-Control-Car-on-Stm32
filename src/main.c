@@ -11,7 +11,7 @@
 #include <zephyr/sys/printk.h>
 #include <zephyr/sys/util.h>
 #include <inttypes.h>
-#include <drivers/adc.h>
+
 
 #define LED0_NODE DT_ALIAS(led0)
 
@@ -20,13 +20,6 @@
 #define THREAD_PRIORITY 5
 
 #define SLEEP_TIME_MS 1
-
-const struct device *adc_dev = device_get_binding(DT_LABEL(DT_NODELABEL(adc1)));
-
-if (!adc_dev) {
-    printk("Cannot find ADC device!\n");
-    return;
-}
 
 K_THREAD_STACK_DEFINE(thread_stack, STACK_SIZE);
 K_THREAD_STACK_DEFINE(thread_stack_1, STACK_SIZE);
@@ -50,7 +43,6 @@ struct k_mutex my_mutex;
 struct my_item {
     void *fifo_reserved;  // First word reserved for use by the kernel.
     int data;             // Your data.
-    //char data[40];             // Your data.
 };
 
 void enqueue_item(int value) {
@@ -70,29 +62,6 @@ void dequeue_item(void) {
 
 
 
-// char s1[] = "Ankhon mein meri tujhe saadgi na dikhay";
-// char s2[] = "Aisay kaisay meri jaana?";
-// char s3[] = "Ye saari baatein jo adhoori si rakhi theen";
-// char s4[] = "Sun raha hai ab zamana";
-// char s5[] = "Subah ko aankh khultay yaad tera aana";
-// char s6[] = "Ye kaisa maajra hai jaana?";
-// char s7[] = "Adayein teri wo jo dil ko chhoo gayi theen";
-// char s8[] = "Kabhi na kuch bhi main kaha na";
-// char s9[] = "Kabhi na kuch bhi main kaha na";
-// char s10[] = "Kabhi na kuch bhi main kaha na";
-// char s11[] = "Labon pe meray ye kahani";
-// char s12[] = "Daastan to hai purani";
-// char s13[] = "Saath ham raheingay ye";
-// char s14[] = "Umeed karkay baithay thay";
-// char s15[] = "Daga kay is pahaar main";
-// char s16[] = "Baja raha guitar main";
-// char s17[] = "Mun mor kay jo tu mujh say hain yun chali";
-// char s18[] = "Mil gaya mujhe bahana";
-// char s19[] = "Ye saari baatein jo adhoori si rakheen thi";
-// char s20[] = "Sun raha hai ab zamana";
-
-
-// const char *song[] = {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20};
 
 
 #if !DT_NODE_HAS_STATUS(LED0_NODE, okay)
@@ -119,8 +88,6 @@ void my_thread(void *a, void *b, void *c)
     
     while(1){
         gpio_pin_toggle_dt(&led);
-        //printk("%s\n", song[i % 20]);
-        //enqueue_item(song[i%20]);
         enqueue_item(i);
         k_msleep(5000);
         k_mutex_lock(&my_mutex, K_FOREVER);
