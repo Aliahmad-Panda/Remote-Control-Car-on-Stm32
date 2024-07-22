@@ -18,11 +18,13 @@ Features:
 	.... To add
 
 Setup:
+	Setup the project on Zephyr RTOS.
 	Use pin and PWN to control Motors.
 	Setup Bluetooth signals.
 	... To add.
  
 Steps to take:
+	Need to learn the usage of GPIOs.
 	Need to learn the usage of PWM.
 	Need to learn how to use external pins.
 	Need to learn how to use Bluetooth.
@@ -32,4 +34,6 @@ Note: Project initialization has been done for practice purposes.
 
 Timeline:
    18th July 2024: Project Initialization.
+   19th July 2024: Learning GPIOS and PWM.
+
    

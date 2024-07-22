@@ -5,6 +5,7 @@ tests:
     tags:
       - LED
       - gpio
+      - devicetree
     filter: dt_enabled_alias_with_parent_compat("led0", "gpio-leds")
     depends_on: gpio
     harness: led
