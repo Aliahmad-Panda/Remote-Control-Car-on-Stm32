@@ -98,11 +98,11 @@ int main(void)
 	{
 		gpio_pin_set_dt(&another_switch, 1);
 		printk("Switching on\n");
-        printf("Switching on(printf)\n");
+        // printf("Switching on(printf)\n");
         k_sleep(K_MSEC(1000));
 		gpio_pin_set_dt(&another_switch, 0);
         printk("Switching off\n");
-        printf("Switching off(printf)\n");
+        // printf("Switching off(printf)\n");
 		k_sleep(K_MSEC(1000));
 	}
 	
